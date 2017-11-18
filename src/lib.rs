@@ -40,6 +40,7 @@
 macro_rules! pub_iterator_type {
     ( #[$($attr:tt)*] $Name:ident [ $($NameParam:tt)* ] = $From:ty ) => {
         #[$($attr)*]
+        #[must_use = "iterator adaptors are lazy and do nothing unless consumed"]
         pub struct $Name < $($NameParam)* > ( $From );
         impl< $($NameParam)* > Iterator for $Name < $($NameParam)* > {
             type Item = < $From as Iterator>::Item;
@@ -53,6 +54,7 @@ macro_rules! pub_iterator_type {
     };
     ( #[$($attr:tt)*] $Name:ident [ $($NameParam:tt)* ] = $From:ty where $($w:tt)* ) => {
         #[$($attr)*]
+        #[must_use = "iterator adaptors are lazy and do nothing unless consumed"]
         pub struct $Name < $($NameParam)* > ( $From ) where $($w)* ;
         impl< $($NameParam)* > Iterator for $Name < $($NameParam)* > where $($w)* {
             type Item = <$From as Iterator>::Item;
